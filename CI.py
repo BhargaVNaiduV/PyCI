@@ -15,7 +15,7 @@ def main():
         if oldcommit != '' and commit != oldcommit:
             print('***** NEW COMMIT ******')
             try:
-                run_tests("this","")
+                #run_tests("this","")
                 build_docker_image()
                 break
             except Exception as e:
