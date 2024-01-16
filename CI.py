@@ -6,6 +6,7 @@ import os,subprocess
 waitsec = 10
 
 
+
 def main():
     commit=''
     while True:
@@ -47,12 +48,14 @@ def build_docker_image():
         print(f"Error during Docker image build: {e}")
         exit(1)
 
-def get_latest_commit(owner, repo):
-    url = 'https://api.github.com/repos/{owner}/{repo}/commits?per_page=1'.format(owner=owner, repo=repo)
+def get_latest_commit(owner, repo, branch='main'):
+    url = 'https://api.github.com/repos/{owner}/{repo}/commits?per_page=1&sha={branch}'.format(
+        owner=owner, repo=repo, branch=branch
+    )
     response = urlopen(url).read()
     data = json.loads(response.decode())
-    #print(data)
-    return data[0]
+    # print(data)
+    return data[0] if data else None
 
 if __name__ == '__main__':
     main()
