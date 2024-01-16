@@ -21,6 +21,18 @@ def main():
                 print(e)
         print('last commit: %s' % commit['html_url'])
         time.sleep(waitsec)
+        
+def run_tests(scriptname,path):
+    # this module is used used to run any tests that we can do on source code before building image 
+    os.chdir(path)
+    name_of_test_script,path= scriptname,path
+    try:
+        subprocess.run(["python", "-m", "unittest",scriptname], check=True)
+
+    except Exception as e:
+        print("exception occured when ruiing tests{e}")    
+    
+
 def build_docker_image():
     git_repo_url = "git@github.com:BhargaVNaiduV/publisher.git"
     clone_directory = "/home/bhargav/lambda_publisher_function/publisher/test_dir1"
